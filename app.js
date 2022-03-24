@@ -19,7 +19,7 @@ app.use(bp.urlencoded({ extended: false }));
 // testing
 const indexTest = require("./controller/gamecontroller")
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3030;
 
 app.use(express.json());
 // const userroutes = require("./routes/theroroutes");
@@ -43,6 +43,7 @@ wss.on("connection",(ws)=>{
     let result = JSON.parse(message.toString());
     // indexTest.addGameData(result.userId, result.gamestate)
     indexTest.addGameData(result._id,result.gamestate)
+    ws.send("success")
     // console.log("gdfdg"+message);
   
   })
