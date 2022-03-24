@@ -1,8 +1,4 @@
 
-// http.listen(3000, () => {
-//   console.log('Connected at 3000');
-// });
-
 const express = require("express")
 
 
@@ -22,8 +18,7 @@ const indexTest = require("./controller/gamecontroller")
 const port = process.env.PORT || 3030;
 
 app.use(express.json());
-// const userroutes = require("./routes/theroroutes");
-// const { emit } = require("./models/signupmodel");
+
 app.use(cors())
 
 
@@ -39,12 +34,13 @@ const wss = new websocket.Server({server},()=>{
 })
 
 wss.on("connection",(ws)=>{
+  ws.send("connected")
   ws.on("message", (message)=>{
     let result = JSON.parse(message.toString());
-    // indexTest.addGameData(result.userId, result.gamestate)
+    
     indexTest.addGameData(result._id,result.gamestate)
     ws.send("success")
-    // console.log("gdfdg"+message);
+    
   
   })
 })
